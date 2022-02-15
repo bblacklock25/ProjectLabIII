@@ -1,0 +1,53 @@
+QWidget {
+    background-color: #000124;
+}
+
+#main-title {
+    color: whitesmoke;
+}
+
+#sample-rate-label {
+    color: white;
+}
+
+#sample-rate-input {
+    background-color: white;
+    border: 3px solid #00708a;
+}
+
+#center-freq-label {
+    color: white;
+}
+
+#center-freq-input {
+    background-color: white;
+    border: 3px solid #00708a;
+}
+
+#freq-correction-label {
+    color: white;
+}
+
+#freq-correction-input {
+    background-color: white;
+    border: 3px solid #00708a;
+}
+
+#gain-label {
+    color: white;
+}
+
+#gain-input {
+    background-color: white;
+    border: 3px solid #00708a;
+}
+
+#config-button {
+    padding: 10px;
+    background-color: white;
+    border: 3px solid #00708a;
+}
+
+#waveform-plot {
+    color: white;
+}
