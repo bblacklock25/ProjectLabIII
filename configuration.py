@@ -14,9 +14,9 @@ sdr.freq_correction = 60   # PPM
 sdr.gain = 'auto'
 
 #set x and y limit
-pyplot.xlim(96.3-2,96.3+2)
-pyplot.ylim(-50,50)
-#streaming defintion
+#pyplot.xlim(96.3-2,96.3+2)
+#pyplot.ylim(-50,50)
+#streaming definition
 async def streaming():
     async for samples in sdr.stream():
         #samples = sdr.read_samples(256*1024)
@@ -26,6 +26,6 @@ async def streaming():
         pyplot.pause(0.01)
         plt.clf()#clear figure
     await sdr.stop()
-
+    sdr.close()
 loop = asyncio.get_event_loop()
 loop.run_until_complete(streaming())
