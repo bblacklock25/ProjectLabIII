@@ -24,6 +24,24 @@ QWidget {
     border: 3px solid #00708a;
 }
 
+#shift-freq-label {
+    color: white;
+}
+
+#shift-freq-input {
+    background-color: white;
+    border: 3px solid #00708a;
+}
+
+#bandwidth-label {
+    color: white;
+}
+
+#bandwidth-input {
+    background-color: white;
+    border: 3px solid #00708a;
+}
+
 #freq-correction-label {
     color: white;
 }
