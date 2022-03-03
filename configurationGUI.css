@@ -1,71 +1,124 @@
-QWidget {
-    background-color: #000124;
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
+
+#configuration-tab {
+    background-color: #808285;
+}
+
+#plot-tab {
+    background-color: #808285;
+}
+
+#decoder-tab {
+    background-color: #808285;
 }
 
 #main-title {
-    color: whitesmoke;
+    color: black;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 #sample-rate-label {
-    color: white;
+    color: black;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 #sample-rate-input {
     background-color: white;
-    border: 3px solid #00708a;
+    border-top: 2.5px outset black;
+    border-left: 2.5px outset black;
+    border-right: 3px outset #C00;
+    border-bottom: 3px outset #C00;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 #center-freq-label {
-    color: white;
+    color: black;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 #center-freq-input {
     background-color: white;
-    border: 3px solid #00708a;
+    border-top: 2.5px outset black;
+    border-left: 2.5px outset black;
+    border-right: 3px outset #C00;
+    border-bottom: 3px outset #C00;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 #shift-freq-label {
-    color: white;
+    color: black;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 #shift-freq-input {
     background-color: white;
-    border: 3px solid #00708a;
+    border-top: 2.5px outset black;
+    border-left: 2.5px outset black;
+    border-right: 3px outset #C00;
+    border-bottom: 3px outset #C00;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 #bandwidth-label {
-    color: white;
+    color: black;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 #bandwidth-input {
     background-color: white;
-    border: 3px solid #00708a;
+    border-top: 2.5px outset black;
+    border-left: 2.5px outset black;
+    border-right: 3px outset #C00;
+    border-bottom: 3px outset #C00;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 #freq-correction-label {
-    color: white;
+    color: black;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 #freq-correction-input {
     background-color: white;
-    border: 3px solid #00708a;
+    border-top: 2.5px outset black;
+    border-left: 2.5px outset black;
+    border-right: 3px outset #C00;
+    border-bottom: 3px outset #C00;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 #gain-label {
-    color: white;
+    color: black;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 #gain-input {
     background-color: white;
-    border: 3px solid #00708a;
+    border-top: 2.5px outset black;
+    border-left: 2.5px outset black;
+    border-right: 3px outset #C00;
+    border-bottom: 3px outset #C00;
+    font-family: 'Ubuntu', sans-serif;
 }
 
 #config-button {
     padding: 10px;
     background-color: white;
-    border: 3px solid #00708a;
+    border-radius: 25px;
+    border-top: 2.5px outset black;
+    border-left: 2.5px outset black;
+    border-right: 3px outset #C00;
+    border-bottom: 3px outset #C00;
+    font-family: 'Ubuntu', sans-serif;
 }
 
-#waveform-plot {
+#config-button:hover {
+    background-color: #C00;
     color: white;
+    border-right: 3px outset black;
+    border-bottom: 3px outset black;
+}
+
+#copyright-label {
+    font-family: 'Ubuntu', sans-serif;
 }
