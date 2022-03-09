@@ -1,19 +1,17 @@
-import sys
+import sys, traceback
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
+from PyQt5.QtCore import *
 from PyQt5 import QtCore, QtWidgets
 import matplotlib
 from matplotlib.figure import Figure
-import matplotlib.font_manager as fm
-import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from asyncqt import QEventLoop
 matplotlib.use('Qt5Agg')
 
 import asyncio
 from rtlsdr import RtlSdr
 import numpy as np
-import random
-
 
 # Application Class 
 class App(QMainWindow):
@@ -50,8 +48,8 @@ class waterfallCanvas(FigureCanvas):
     def __init__(self, parent=None):
         fig = Figure()
         fig.suptitle('Waterfall Plot', color='black')
-        fig.supxlabel('Frequency (Hz)', color='black')
-        fig.supylabel('Time (s)', color='black')
+        # fig.supxlabel('Frequency (Hz)', color='black')
+        fig.supylabel('Frequency (Hz)', color='black')
         fig.patch.set_facecolor('#808285')
         self.axes = fig.add_subplot(111)
         self.axes.tick_params(colors='black')
@@ -63,6 +61,8 @@ class MyTableWidget(QWidget):
 
     def __init__(self, *args, **kwargs):
         super(QWidget, self).__init__(*args, **kwargs)
+
+        self.threadpool = QThreadPool()
 
         # Import Google Fonts
         fontDatabase = QFontDatabase()
@@ -84,7 +84,6 @@ class MyTableWidget(QWidget):
         self.layout = QVBoxLayout(self)
 
     # Configuration Tab
-        # self.configureLayout = QFormLayout(self)
         self.sampleRateLabelLayout = QHBoxLayout(self)
         self.centerFreqLabelLayout = QHBoxLayout(self)
         self.shiftFreqLabelLayout = QHBoxLayout(self)
@@ -114,7 +113,6 @@ class MyTableWidget(QWidget):
         self.sampleRateInput.setFont(QFont('Ubuntu-Medium'))
         self.sampleRateInput.setObjectName('sample-rate-input')
         self.sampleRateLabelLayout.addWidget(self.sampleRateLabel)
-        # self.sampleRateLabelLayout.setAlignment(QtCore.Qt.AlignHCenter)
         self.sampleRateInputLayout.addWidget(self.sampleRateInput)
         self.sampleRateLayout.addLayout(self.sampleRateLabelLayout, 50)
         self.sampleRateLayout.addLayout(self.sampleRateInputLayout, 50)
@@ -128,7 +126,6 @@ class MyTableWidget(QWidget):
         self.centerFreqInput.setFont(QFont('Ubuntu-Medium'))
         self.centerFreqInput.setObjectName('center-freq-input')
         self.centerFreqLabelLayout.addWidget(self.centerFreqLabel)
-        # self.centerFreqLabelLayout.setAlignment(QtCore.Qt.AlignHCenter)
         self.centerFreqInputLayout.addWidget(self.centerFreqInput)
         self.centerFreqLayout.addLayout(self.centerFreqLabelLayout, 50)
         self.centerFreqLayout.addLayout(self.centerFreqInputLayout, 50)
@@ -142,7 +139,6 @@ class MyTableWidget(QWidget):
         self.shiftFreqInput.setFont(QFont('Ubuntu-Medium'))
         self.shiftFreqInput.setObjectName('shift-freq-input')
         self.shiftFreqLabelLayout.addWidget(self.shiftFreqLabel)
-        # self.shiftFreqLabelLayout.setAlignment(QtCore.Qt.AlignHCenter)
         self.shiftFreqInputLayout.addWidget(self.shiftFreqInput)
         self.shiftFreqLayout.addLayout(self.shiftFreqLabelLayout, 50)
         self.shiftFreqLayout.addLayout(self.shiftFreqInputLayout, 50)
@@ -156,7 +152,6 @@ class MyTableWidget(QWidget):
         self.bandwidthInput.setFont(QFont('Ubuntu-Medium'))
         self.bandwidthInput.setObjectName('bandwidth-input')
         self.bandwidthLabelLayout.addWidget(self.bandwidthLabel)
-        # self.bandwidthLabelLayout.setAlignment(QtCore.Qt.AlignHCenter)
         self.bandwidthInputLayout.addWidget(self.bandwidthInput)
         self.bandwidthLayout.addLayout(self.bandwidthLabelLayout, 50)
         self.bandwidthLayout.addLayout(self.bandwidthInputLayout, 50)
@@ -170,7 +165,6 @@ class MyTableWidget(QWidget):
         self.freqCorrectionInput.setFont(QFont('Ubuntu-Medium'))
         self.freqCorrectionInput.setObjectName('freq-correction-input')
         self.freqCorrectionLabelLayout.addWidget(self.freqCorrectionLabel)
-        # self.freqCorrectionLabelLayout.setAlignment(QtCore.Qt.AlignHCenter)
         self.freqCorrectionInputLayout.addWidget(self.freqCorrectionInput)
         self.freqCorrectionLayout.addLayout(self.freqCorrectionLabelLayout, 50)
         self.freqCorrectionLayout.addLayout(self.freqCorrectionInputLayout, 50)
@@ -184,7 +178,6 @@ class MyTableWidget(QWidget):
         self.gainInput.setFont(QFont('Ubuntu-Medium'))
         self.gainInput.setObjectName('gain-input')
         self.gainLabelLayout.addWidget(self.gainLabel)
-        # self.gainLabelLayout.setAlignment(QtCore.Qt.AlignHCenter)
         self.gainInputLayout.addWidget(self.gainInput)
         self.gainLayout.addLayout(self.gainLabelLayout, 50)
         self.gainLayout.addLayout(self.gainInputLayout, 50)
@@ -242,22 +235,11 @@ class MyTableWidget(QWidget):
         self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)
 
-    def updatePlot(self):
-        self.waveformPlot.axes.cla()
-        # self.waveformPlot.axes.psd(self.samples, NFFT=1024, Fs=self.sampleRateInput/1e6, Fc=(self.centerFreqInput + self.shiftFreqInput)/1e6)
-        x = random.randint(0, 10)
-        self.waveformPlot.axes.plot(np.arange(0, x), np.sin(2*np.pi*np.arange(0, x)))
-        self.waveformPlot.draw()
-    
     def configurationButtonClicked(self):
-        self.timer = QtCore.QTimer()
-        self.timer.setInterval(100)
-        self.timer.timeout.connect(self.updatePlot)
-        self.timer.start()
-        # loop = asyncio.get_event_loop()
-        # loop.run_until_complete(self.streaming())
+         loop = asyncio.get_event_loop()
+         loop.run_until_complete(self.streaming())
 
-    async def streaming(self): 
+    async def streaming(self):
         sdr = RtlSdr()
     
         sdr.sample_rate = float(self.sampleRateInput.text())
@@ -266,10 +248,13 @@ class MyTableWidget(QWidget):
         sdr.gain = self.gainInput.text()
     
         async for self.samples in sdr.stream():
-            self.timer = QtCore.QTimer()
-            self.timer.setInterval(100)
-            self.timer.timeout.connect(self.updatePlot)
-            self.timer.start()
+            QApplication.processEvents()
+            self.waveformPlot.axes.cla()
+            self.waveformPlot.axes.psd(self.samples, NFFT=1024, Fs=float(self.sampleRateInput.text())/1e6, Fc=(float(self.centerFreqInput.text()) + float(self.shiftFreqInput.text()))/1e6, color='red', linewidth=2.5)
+            self.waveformPlot.draw()
+            self.waterfallPlot.axes.cla()
+            self.waterfallPlot.axes.specgram(self.samples, NFFT=1024, Fs=float(self.sampleRateInput.text())/1e6, Fc=(float(self.centerFreqInput.text()) + float(self.shiftFreqInput.text()))/1e6)
+            self.waterfallPlot.draw()
     
         await sdr.stop()
     
