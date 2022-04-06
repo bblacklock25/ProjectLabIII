@@ -1,12 +1,11 @@
-import sys, traceback
+import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-from PyQt5 import QtCore, QtWidgets
+from PyQt5 import QtCore
 import matplotlib
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-from asyncqt import QEventLoop
 matplotlib.use('Qt5Agg')
 
 import asyncio
@@ -34,8 +33,8 @@ class waveformCanvas(FigureCanvas):
 
         fig = Figure()
         fig.suptitle('Waveform Plot', color='black')
-        fig.supxlabel('Frequency (Hz)', color='black')
-        fig.supylabel('Relative Power (dB)', color='black')
+        # fig.supxlabel('Frequency (Hz)', color='black')
+        # fig.supylabel('Relative Power (dB)', color='black')
         fig.patch.set_facecolor('#808285')
         self.axes = fig.add_subplot(111)
         self.axes.tick_params(colors='black')
@@ -83,7 +82,7 @@ class MyTableWidget(QWidget):
         self.tabs.addTab(self.decoderTab, 'WEFAX Decoder')
         self.layout = QVBoxLayout(self)
 
-    # Configuration Tab
+        # Configuration Tab
         self.sampleRateLabelLayout = QHBoxLayout(self)
         self.centerFreqLabelLayout = QHBoxLayout(self)
         self.shiftFreqLabelLayout = QHBoxLayout(self)
@@ -107,10 +106,10 @@ class MyTableWidget(QWidget):
         # Sample Rate Elements
         self.sampleRateLabel = QLabel('Sample Rate (S/s)')
         self.sampleRateLabel.setObjectName('sample-rate-label')
-        self.sampleRateLabel.setFont(QFont('Ubuntu-Medium'))
+        self.sampleRateLabel.setFont(QFont('Ubuntu-Medium', 14))
         self.sampleRateInput = QLineEdit()
         self.sampleRateInput.setText('2048000')
-        self.sampleRateInput.setFont(QFont('Ubuntu-Medium'))
+        self.sampleRateInput.setFont(QFont('Ubuntu-Medium', 14))
         self.sampleRateInput.setObjectName('sample-rate-input')
         self.sampleRateLabelLayout.addWidget(self.sampleRateLabel)
         self.sampleRateInputLayout.addWidget(self.sampleRateInput)
@@ -120,10 +119,10 @@ class MyTableWidget(QWidget):
         # Center Frequency Elements
         self.centerFreqLabel = QLabel('Center Frequency (Hz)')
         self.centerFreqLabel.setObjectName('center-freq-label')
-        self.centerFreqLabel.setFont(QFont('Ubuntu-Medium'))
+        self.centerFreqLabel.setFont(QFont('Ubuntu-Medium', 14))
         self.centerFreqInput = QLineEdit()
         self.centerFreqInput.setText('96300000')
-        self.centerFreqInput.setFont(QFont('Ubuntu-Medium'))
+        self.centerFreqInput.setFont(QFont('Ubuntu-Medium', 14))
         self.centerFreqInput.setObjectName('center-freq-input')
         self.centerFreqLabelLayout.addWidget(self.centerFreqLabel)
         self.centerFreqInputLayout.addWidget(self.centerFreqInput)
@@ -133,10 +132,10 @@ class MyTableWidget(QWidget):
         # Shift Frequency Elements
         self.shiftFreqLabel = QLabel('Shift (Hz)')
         self.shiftFreqLabel.setObjectName('shift-freq-label')
-        self.shiftFreqLabel.setFont(QFont('Ubuntu-Medium'))
+        self.shiftFreqLabel.setFont(QFont('Ubuntu-Medium', 14))
         self.shiftFreqInput = QLineEdit()
         self.shiftFreqInput.setText('0')
-        self.shiftFreqInput.setFont(QFont('Ubuntu-Medium'))
+        self.shiftFreqInput.setFont(QFont('Ubuntu-Medium', 14))
         self.shiftFreqInput.setObjectName('shift-freq-input')
         self.shiftFreqLabelLayout.addWidget(self.shiftFreqLabel)
         self.shiftFreqInputLayout.addWidget(self.shiftFreqInput)
@@ -146,10 +145,10 @@ class MyTableWidget(QWidget):
         # Bandwidth Elements
         self.bandwidthLabel = QLabel('Bandwidth (Hz)')
         self.bandwidthLabel.setObjectName('bandwidth-label')
-        self.bandwidthLabel.setFont(QFont('Ubuntu-Medium'))
+        self.bandwidthLabel.setFont(QFont('Ubuntu-Medium', 14))
         self.bandwidthInput = QLineEdit()
         self.bandwidthInput.setText('0')
-        self.bandwidthInput.setFont(QFont('Ubuntu-Medium'))
+        self.bandwidthInput.setFont(QFont('Ubuntu-Medium', 14))
         self.bandwidthInput.setObjectName('bandwidth-input')
         self.bandwidthLabelLayout.addWidget(self.bandwidthLabel)
         self.bandwidthInputLayout.addWidget(self.bandwidthInput)
@@ -159,10 +158,10 @@ class MyTableWidget(QWidget):
         # Frequency Correction Elements
         self.freqCorrectionLabel = QLabel('Frequency Correction')
         self.freqCorrectionLabel.setObjectName('freq-correction-label')
-        self.freqCorrectionLabel.setFont(QFont('Ubuntu-Medium'))
+        self.freqCorrectionLabel.setFont(QFont('Ubuntu-Medium', 14))
         self.freqCorrectionInput = QLineEdit()
         self.freqCorrectionInput.setText('60')
-        self.freqCorrectionInput.setFont(QFont('Ubuntu-Medium'))
+        self.freqCorrectionInput.setFont(QFont('Ubuntu-Medium', 14))
         self.freqCorrectionInput.setObjectName('freq-correction-input')
         self.freqCorrectionLabelLayout.addWidget(self.freqCorrectionLabel)
         self.freqCorrectionInputLayout.addWidget(self.freqCorrectionInput)
@@ -172,10 +171,10 @@ class MyTableWidget(QWidget):
         # Gain Elements
         self.gainLabel = QLabel('Gain')
         self.gainLabel.setObjectName('gain-label')
-        self.gainLabel.setFont(QFont('Ubuntu-Medium'))
+        self.gainLabel.setFont(QFont('Ubuntu-Medium', 14))
         self.gainInput = QLineEdit()
         self.gainInput.setText('auto')
-        self.gainInput.setFont(QFont('Ubuntu-Medium'))
+        self.gainInput.setFont(QFont('Ubuntu-Medium', 14))
         self.gainInput.setObjectName('gain-input')
         self.gainLabelLayout.addWidget(self.gainLabel)
         self.gainInputLayout.addWidget(self.gainInput)
@@ -185,7 +184,7 @@ class MyTableWidget(QWidget):
         # Configure Button Elements
         self.configureButton = QPushButton('Configure')
         self.configureButton.setObjectName('config-button')
-        self.configureButton.setFont(QFont('Ubuntu-Medium'))
+        self.configureButton.setFont(QFont('Ubuntu-Medium', 14))
         self.configureButton.clicked.connect(self.configurationButtonClicked)
         
         # TTU ECE Image Element
@@ -198,7 +197,7 @@ class MyTableWidget(QWidget):
         # Brendan and Jacob
         self.endTag = QLabel('Brendan Blacklock and Jacob Holyoak\n\u00a9 2022')
         self.endTag.setObjectName('copyright-label')
-        self.endTag.setFont(QFont('Ubuntu-Medium'))
+        self.endTag.setFont(QFont('Ubuntu-Medium', 14))
         self.endTag.setAlignment(QtCore.Qt.AlignHCenter)
         
         # Add Widgets to Configure Tab
@@ -216,7 +215,7 @@ class MyTableWidget(QWidget):
         self.configureLayout.setSpacing(25)
         self.configurationTab.setLayout(self.configureLayout)
     
-    # Plots Tab
+        # Plots Tab
         self.plotLayout = QVBoxLayout(self)
         # Waveform Plot Element
         self.waveformPlot = waveformCanvas(self)
